@@ -22,3 +22,16 @@ class PyObjectId(ObjectId):
     @classmethod
     def __modify_schema__(cls, field_schema):
         field_schema.update(type='string')
+
+
+class User(BaseModel):
+    id: Optional[PyObjectId] = Field(alias='_id')
+    name: str
+    username: str
+    email: str
+
+    class Config:
+        arbitrary_types_allowed = True
+        json_encoders = {
+            ObjectId: str
+        }
